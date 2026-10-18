@@ -1,0 +1,376 @@
+:root {
+  color-scheme: dark;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #08090c;
+  color: #fff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0;
+  overflow: hidden;
+}
+
+button {
+  color: inherit;
+  font: inherit;
+}
+
+.gallery {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #08090c;
+}
+
+.gallery::before,
+.gallery::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.gallery::before {
+  background:
+    linear-gradient(90deg, rgb(5 6 9 / 44%), transparent 68%),
+    linear-gradient(0deg, rgb(5 6 9 / 84%), transparent 38%),
+    linear-gradient(180deg, rgb(5 6 9 / 48%), transparent 25%);
+}
+
+.gallery::after {
+  box-shadow: inset 0 0 140px rgb(0 0 0 / 24%);
+}
+
+.artwork {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.artwork img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 850ms ease;
+}
+
+.artwork img:first-child {
+  object-position: 72% center;
+}
+
+.artwork img.is-active {
+  opacity: 1;
+}
+
+.topbar,
+.controls {
+  position: absolute;
+  z-index: 2;
+  right: clamp(24px, 6vw, 88px);
+  left: clamp(24px, 6vw, 88px);
+}
+
+.topbar {
+  top: clamp(24px, 5vh, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.wordmark {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.collection {
+  color: rgb(255 255 255 / 66%);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.controls {
+  bottom: clamp(24px, 5vh, 56px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 28px 40px;
+}
+
+.slide-info {
+  grid-column: 1 / -1;
+}
+
+.eyebrow {
+  margin: 0 0 9px;
+  color: rgb(255 255 255 / 62%);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.slide-title {
+  margin: 0;
+  font-size: clamp(32px, 6vw, 76px);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.progress {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(42px, 1fr));
+  gap: 8px;
+  max-width: 420px;
+  margin-top: clamp(24px, 5vh, 48px);
+}
+
+.progress-button {
+  min-width: 0;
+  padding: 12px 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.progress-track {
+  display: block;
+  height: 2px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 34%);
+}
+
+.progress-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #fff;
+}
+
+.progress-button.is-complete .progress-fill {
+  width: 100%;
+}
+
+.progress-button.is-active .progress-fill {
+  animation: progress-fill 6s linear forwards;
+  animation-play-state: running;
+}
+
+.gallery.is-paused .progress-button.is-active .progress-fill {
+  animation-play-state: paused;
+}
+
+@keyframes progress-fill {
+  to {
+    width: 100%;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.counter {
+  min-width: 58px;
+  color: rgb(255 255 255 / 82%);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter span {
+  color: rgb(255 255 255 / 48%);
+}
+
+.icon-button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 54%);
+  border-radius: 50%;
+  background: rgb(8 9 12 / 22%);
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.icon-button:hover {
+  transform: scale(1.06);
+  border-color: #fff;
+  background: rgb(255 255 255 / 14%);
+}
+
+.icon-button:focus-visible,
+.progress-button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+.icon-button svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.icon-button .play-icon {
+  display: none;
+}
+
+.gallery.is-paused .icon-button .pause-icon {
+  display: none;
+}
+
+.gallery.is-paused .icon-button .play-icon {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .artwork {
+    inset: 12svh 0 auto;
+    height: min(56.25vw, 60svh);
+  }
+
+  .artwork img {
+    object-fit: contain;
+  }
+
+  .artwork img:first-child {
+    object-position: center;
+  }
+
+  .gallery::before {
+    background: linear-gradient(0deg, #08090c 12%, transparent 60%);
+  }
+
+  .gallery::after {
+    box-shadow: none;
+  }
+
+  .topbar,
+  .controls {
+    right: max(20px, env(safe-area-inset-right));
+    left: max(20px, env(safe-area-inset-left));
+  }
+
+  .topbar {
+    top: max(20px, env(safe-area-inset-top));
+  }
+
+  .wordmark {
+    font-size: 11px;
+  }
+
+  .collection {
+    max-width: 130px;
+    font-size: 9px;
+    line-height: 1.6;
+  }
+
+  .controls {
+    bottom: max(20px, env(safe-area-inset-bottom));
+    gap: 16px;
+  }
+
+  .eyebrow {
+    margin-bottom: 8px;
+    font-size: 9px;
+  }
+
+  .slide-title {
+    font-size: clamp(30px, 8vw, 48px);
+    letter-spacing: 0.045em;
+  }
+
+  .progress {
+    gap: 5px;
+    margin-top: clamp(20px, 4vh, 32px);
+  }
+
+  .progress-button {
+    padding: 12px 0;
+  }
+
+  .actions {
+    gap: 12px;
+  }
+
+  .icon-button {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (max-width: 600px) and (max-height: 500px) {
+  .artwork {
+    inset: 0 0 0 auto;
+    width: 58%;
+    height: 100%;
+  }
+
+  .controls {
+    right: 58%;
+    gap: 8px;
+  }
+
+  .slide-info {
+    grid-column: 1 / -1;
+  }
+
+  .slide-title {
+    font-size: clamp(24px, 6vw, 36px);
+  }
+
+  .progress {
+    margin-top: 12px;
+  }
+
+  .topbar {
+    right: 58%;
+  }
+
+  .collection {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

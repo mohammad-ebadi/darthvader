@@ -3,9 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Darthvader</title>
+    <meta
+      name="description"
+      content="A full-screen gallery featuring three portraits of Darth Vader."
+    />
+    <meta name="theme-color" content="#08090c" />
+    <title>Darth Vader — The Dark Side Archive</title>
+    <link rel="stylesheet" href="css/gallery.css" />
+    <script src="js/gallery.js" defer></script>
   </head>
   <body>
-    <h1>Darthvader</h1>
+    <main class="gallery" aria-label="Darth Vader image gallery">
+      <div class="artwork" aria-live="off">
+        <img
+          class="is-active"
+          src="images/1.jpg"
+          alt="Darth Vader in a dark, cinematic portrait"
+          fetchpriority="high"
+        />
+        <img src="images/2.jpg" alt="Illustrated Darth Vader beneath a neon Death Star" />
+        <img src="images/3.jpg" alt="Minimal red-and-white portrait of Darth Vader" />
+      </div>
+
+      <header class="topbar">
+        <p class="wordmark">Darth Vader</p>
+        <span class="collection">The Dark Side Archive</span>
+      </header>
+
+      <section class="controls" aria-label="Gallery controls">
+        <div class="slide-info" aria-live="polite">
+          <p class="eyebrow">A study in the dark side</p>
+          <h1 class="slide-title">The Enforcer</h1>
+          <nav class="progress" aria-label="Choose an image">
+            <button
+              class="progress-button is-active"
+              type="button"
+              aria-label="Show image 1: The Enforcer"
+              aria-current="true"
+            >
+              <span class="progress-track"><span class="progress-fill"></span></span>
+            </button>
+            <button
+              class="progress-button"
+              type="button"
+              aria-label="Show image 2: The Empire"
+            >
+              <span class="progress-track"><span class="progress-fill"></span></span>
+            </button>
+            <button
+              class="progress-button"
+              type="button"
+              aria-label="Show image 3: The Mask"
+            >
+              <span class="progress-track"><span class="progress-fill"></span></span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="actions">
+          <span class="counter" aria-label="Image 1 of 3">
+            <span class="current-count">01</span> <span>/ 03</span>
+          </span>
+          <button
+            class="icon-button"
+            type="button"
+            aria-label="Pause slideshow"
+            aria-pressed="false"
+          >
+            <svg class="pause-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 3h3v10H4zm5 0h3v10H9z" />
+            </svg>
+            <svg class="play-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M5 3.2v9.6L13 8z" />
+            </svg>
+          </button>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
